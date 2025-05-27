@@ -1,0 +1,52 @@
+
+<html>
+<head>
+    <title>EpigenAI</title>
+    <style>
+        body { font-family: Arial, sans-serif; font-size: 20px; text-align: center; background-color: #f0f0f0; }
+        h1 { color: #2c3e50; font-size: 28px; }
+        p { margin: 20px; line-height: 1.6; }
+        form { background-color: white; border-radius: 10px; padding: 20px; margin: 30px auto; width: 80%; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        label { display: inline-block; width: 200px; text-align: right; margin-right: 10px; }
+        select, textarea, input[type="date"] { font-size: 18px; padding: 5px; width: 300px; }
+        input[type="submit"] { padding: 10px 20px; background-color: #3498db; color: white; border: none; border-radius: 5px; font-size: 18px; cursor: pointer; }
+        input[type="submit"]:hover { background-color: #2980b9; }
+    </style>
+</head>
+<body>
+    <h1>EpigenAI: 후성유전학 기반 건강습관 분석</h1>
+    <p>고령화 사회에서의 노화 질병 예방을 위해 생활습관 데이터를 입력하세요. 최소 7일의 기록이 모이면 건강 분석 결과를 확인할 수 있습니다.</p>
+    <form method="post">
+        <label>연령대:</label>
+        <select name="age_group">
+            <option value="under_60">60세 미만</option>
+            <option value="over_60">60세 이상</option>
+        </select><br><br>
+        <label>날짜:</label>
+        <input type="date" name="date" value="2025-05-27" required><br><br>
+        <label>수면 시간 (시간):</label>
+        <select name="sleep">
+            <option value="6">6시간</option>
+            <option value="8">8시간</option>
+        </select><br><br>
+        <label>스트레스 수준:</label>
+        <select name="stress">
+            <option value="Low">낮음</option>
+            <option value="High">높음</option>
+        </select><br><br>
+        <label>식단 품질:</label>
+        <select name="diet">
+            <option value="Good">좋음</option>
+            <option value="Poor">나쁨</option>
+        </select><br><br>
+        <label>운동 시간 (분):</label>
+        <select name="exercise">
+            <option value="30">30분</option>
+            <option value="0">0분</option>
+        </select><br><br>
+        <label>추가 의견 (선택 사항):</label>
+        <textarea name="user_comment" rows="3" cols="30" placeholder="건강 상태나 궁금한 점을 적어주세요."></textarea><br><br>
+        <input type="submit" value="데이터 저장">
+    </form>
+</body>
+</html>
