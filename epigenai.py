@@ -8,10 +8,6 @@ Original file is located at
 """
 
 
-from pyngrok import ngrok
-ngrok.set_auth_token("2xgO606y570LCQMfk4G3LlOB1bc_2br1u5wMNcAXkJsZbHkQd")
-public_url = ngrok.connect(5000)
-print("웹 앱 주소:", public_url)
 
 import pandas as pd
 
@@ -37,7 +33,7 @@ print("데이터 파일이 저장되었습니다!")
 
 # 2. Flask+pyngrok 기반 EpigenAI 웹앱 전체 코드
 from flask import Flask, request, redirect
-from pyngrok import ngrok
+
 import pandas as pd
 import sqlite3
 from datetime import datetime
@@ -47,7 +43,7 @@ import threading
 app = Flask(__name__)
 
 # ngrok 인증 토큰 설정 (본인 토큰으로 교체!)
-ngrok.set_auth_token("2xgO606y570LCQMfk4G3LlOB1bc_2br1u5wMNcAXkJsZbHkQd")
+
 
 # 데이터 로드
 data = pd.read_csv('epigen_data.csv')
@@ -225,5 +221,4 @@ def run_flask():
 threading.Thread(target=run_flask).start()
 
 # ngrok 터널 연결
-public_url = ngrok.connect(5000)
-print("웹 앱 주소:", public_url)
+
