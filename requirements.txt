@@ -1,5 +1,4 @@
 flask
-flask-ngrok
 pandas
 transformers
 gunicorn
