@@ -1,0 +1,9 @@
+Lifestyle_Factor,Value,Epigenetic_Mechanism,Health_Risk_Score,Alzheimer_Risk,Cardiovascular_Risk,Diabetes_Risk
+Sleep_Hours,6,DNA Methylation (Increased),3.5,0.4,0.3,0.2
+Sleep_Hours,8,DNA Methylation (Balanced),1.5,0.1,0.1,0.1
+Stress_Level,High,Histone Modification (Dysregulated),4.0,0.3,0.5,0.2
+Stress_Level,Low,Histone Modification (Stable),1.5,0.1,0.1,0.1
+Diet_Quality,Poor,DNA Methylation (Increased),4.5,0.2,0.4,0.5
+Diet_Quality,Good,DNA Methylation (Balanced),2.0,0.1,0.1,0.1
+Exercise_Minutes,30,DNA Methylation (Decreased),1.5,0.1,0.1,0.1
+Exercise_Minutes,0,DNA Methylation (Increased),3.5,0.2,0.3,0.3
