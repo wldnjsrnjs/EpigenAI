@@ -7,9 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1YPjkvHHI7ootDtzV3Xr9T7E3p5MH05t5
 """
 
-pip install flask flask-ngrok pandas transformers
-
-pip install pyngrok
 
 from pyngrok import ngrok
 ngrok.set_auth_token("2xgO606y570LCQMfk4G3LlOB1bc_2br1u5wMNcAXkJsZbHkQd")
@@ -36,7 +33,7 @@ data.to_csv('epigen_data.csv', index=False)
 print("데이터 파일이 저장되었습니다!")
 
 # 1. 필수 패키지 설치 (Colab에서 한 번만 실행)
-pip install flask pyngrok pandas transformers
+
 
 # 2. Flask+pyngrok 기반 EpigenAI 웹앱 전체 코드
 from flask import Flask, request, redirect
