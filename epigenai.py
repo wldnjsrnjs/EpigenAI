@@ -9,7 +9,7 @@ app = Flask(__name__)
 # 데이터 로드
 data = pd.read_csv('epigen_data.csv')
 
-# Hugging Face Inference API 토큰 (환경변수로 관리 권장, 예시는 하드코딩)
+# Hugging Face Inference API 토큰 (환경변수로 관리 권장)
 HF_TOKEN = "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"  # 본인 토큰으로 교체
 
 def get_ai_advice(prompt):
@@ -68,12 +68,6 @@ def check_user_records():
     conn.close()
     return len(dates) >= 7
 
-def simulate_improvement(user_data, factor, improved_value):
-    improved_data = user_data.copy()
-    improved_data[factor] = improved_value
-    risk, _, _, _ = calculate_risk(improved_data)
-    return risk
-
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
@@ -102,7 +96,8 @@ def home():
         advice = generate_personalized_advice(risk, user_input, age_group)
         save_user_data(user_data, risk, advice)
         return redirect('/history')
-    return '''
+    else:
+        return '''
 <h1>EpigenAI: 후성유전학 기반 건강습관 분석</h1>
 <form method="post">
 <label>연령대:</label>
@@ -138,7 +133,7 @@ def home():
 </form>
 '''.replace("{today}", datetime.now().strftime('%Y-%m-%d'))
 
-@app.route('/history')
+@app.route('/history', methods=['GET'])
 def history():
     conn = sqlite3.connect('epigenai_users.db')
     cursor = conn.cursor()
@@ -150,6 +145,11 @@ def history():
     for record in records:
         html += f"<tr><td>{record[8]}</td><td>{record[1]}</td><td>{record[2]}</td><td>{record[3]}</td><td>{record[4]}</td><td>{record[5]}</td><td>{record[6]}</td><td>{record[7][:40]}...</td></tr>"
     html += "</table><br><a href='/'>홈으로 돌아가기</a>"
+    html += '''
+    <form method="post" action="/reset" style="margin-top:20px;">
+        <input type="submit" value="입력 데이터 전체 초기화" style="font-size:18px; background:#e74c3c; color:white; border:none; border-radius:5px; padding:10px 20px; cursor:pointer;">
+    </form>
+    '''
     if check_user_records():
         html += "<br><b>7일 이상 기록이 있으니 결과 분석이 가능합니다!</b>"
         html += "<br><a href='/result'>주간 결과 분석 보기</a>"
@@ -157,7 +157,20 @@ def history():
         html += "<br><b>7일 이상 기록을 입력해야 결과를 볼 수 있습니다.</b>"
     return html
 
-@app.route('/result')
+@app.route('/reset', methods=['POST'])
+def reset():
+    conn = sqlite3.connect('epigenai_users.db')
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM users')
+    conn.commit()
+    conn.close()
+    return '''
+<h1>입력 데이터가 모두 초기화되었습니다!</h1>
+<a href='/history'>기록 페이지로 돌아가기</a>
+<br><a href='/'>홈으로 돌아가기</a>
+'''
+
+@app.route('/result', methods=['GET'])
 def result():
     conn = sqlite3.connect('epigenai_users.db')
     cursor = conn.cursor()
@@ -176,7 +189,7 @@ def result():
     html += "</table><br><a href='/'>홈으로 돌아가기</a>"
     return html
 
-@app.route('/education')
+@app.route('/education', methods=['GET'])
 def education():
     return '''
 <h1>후성유전학 교육 콘텐츠</h1>
